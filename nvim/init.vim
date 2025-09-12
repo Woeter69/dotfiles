@@ -62,6 +62,13 @@ nnoremap <leader>q :q!<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>wq :wq<CR>
 
+
+" fuzzy search inside the current buffer immediately
+nnoremap \l :BLines<CR>
+
+" fuzzy find files (current directory)
+nnoremap \z :Files<CR>
+
 " Toggle comments for selected lines
 vnoremap <leader>c gc
 
@@ -99,3 +106,12 @@ nnoremap <S-Esc> :bd<CR>
 " --- Load Lua plugin configs ---
 lua require('plugins.autopairs')
 lua require('plugins.treesitter')
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    disable = { "c", "cpp" },
+  },
+}
+EOF
