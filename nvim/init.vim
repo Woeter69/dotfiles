@@ -115,3 +115,33 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+
+
+" bootstrap packer if needed
+lua << EOF
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  fn.system({'git', 'clone', '--depth', '1',
+    'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.cmd [[packadd packer.nvim]]
+end
+EOF
+
+" plugin setup
+lua << EOF
+require('packer').startup(function(use)
+  use 'wbthomason/packer.nvim'
+  use {
+    'andweeb/presence.nvim',
+    config = function()
+      require("presence"):setup({
+        auto_update = true,
+        neovim_image_text = "Editing with Neovim",
+        main_image = "neovim",
+        buttons = false,
+      })
+    end
+  }
+end)
+EOF
