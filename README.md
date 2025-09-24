@@ -41,7 +41,7 @@ This setup installs WSL (Ubuntu), Zsh, Oh My Zsh, Neovim, and links the dotfiles
 
    _Inside Ubuntu WSL:_
    ```sh
-   git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
+   git clone https://github.com/Woeter69/dotfiles.git ~/dotfiles
    cd ~/dotfiles/setup
    ```
 
