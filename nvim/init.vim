@@ -3,6 +3,9 @@
 " NEOVIM CONFIG - MODERN FUNCTIONALITY WITH SHORTCUTS (v0.9.5)
 " ===========================
 
+
+let g:python3_host_prog = expand("~/.venvs/nvim/bin/python")
+
 " --- Plugin Manager ---
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -29,7 +32,21 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Treesitter for syntax highlighting
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+Plug 'nvim-lua/plenary.nvim'
+Plug 'MunifTanjim/nui.nvim' 
+
+" Avante AI plugin
+Plug 'yetone/avante.nvim'
+
+" Colorschemes
+Plug 'folke/tokyonight.nvim'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+
 call plug#end()
+
+set termguicolors
+colorscheme catppuccin
+
 
 " --- Basic Settings ---
 set number
@@ -144,4 +161,54 @@ require('packer').startup(function(use)
     end
   }
 end)
+EOF
+
+" Disable default keybindings if you want
+let g:codeium_disable_bindings = 1
+
+" Accept full suggestion with Ctrl+F
+imap <script><silent><nowait><expr> <C-f> codeium#Accept()
+
+" Accept next word or line
+imap <script><silent><nowait><expr> <C-h> codeium#AcceptNextWord()
+imap <script><silent><nowait><expr> <C-j> codeium#AcceptNextLine()
+
+" Cycle completions
+imap <C-;>   <Cmd>call codeium#CycleCompletions(1)<CR>
+imap <C-,>   <Cmd>call codeium#CycleCompletions(-1)<CR>
+
+" Clear suggestion
+imap <C-x>   <Cmd>call codeium#Clear()<CR>
+
+hi Normal guibg=NONE ctermbg=NONE
+hi NormalNC guibg=NONE ctermbg=NONE
+hi VertSplit guibg=NONE
+hi StatusLine guibg=NONE
+hi StatusLineNC guibg=NONE
+hi LineNr guibg=NONE
+hi NonText guibg=NONE
+hi SignColumn guibg=NONE
+hi Pmenu guibg=NONE
+hi PmenuSel guibg=NONE
+
+" --- Avante AI Panel ---
+" Open floating AI popup
+nnoremap <silent> \t :lua require('avante').ask_popup()<CR>
+
+" Close popup
+nnoremap <silent> \q :lua require('avante').close_popup()<CR>
+
+lua << EOF
+require('avante').setup({
+  ai = {
+    provider = 'claude',           -- or another supported AI
+    model = 'claude-sonnet-4',
+    api_key = os.getenv("CLAUDE_API_KEY"), -- set in your environment if needed
+  },
+  float = {
+    width = 0.35,                  -- 35% of editor width
+    height = 0.8,                  -- 80% of editor height
+    border = 'rounded'
+  }
+})
 EOF
