@@ -196,7 +196,8 @@ hi PmenuSel guibg=NONE
 nnoremap <silent> \t :lua require('avante').ask_popup()<CR>
 
 " Close popup
-nnoremap <silent> \q :lua require('avante').close_popup()<CR>
+nnoremap <silent> \qa :lua require('avante').close_popup()<CR>
+i
 
 lua << EOF
 require('avante').setup({
