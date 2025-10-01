@@ -1,4 +1,3 @@
-# Zsh Configuration
 # ==============================
 
 # Powerlevel10k instant prompt
@@ -89,4 +88,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # ------------------------------
 # End of zshrc
-# ------------------------------
+# -----------------------------
+
+export PATH=$PATH:/usr/local/bin

@@ -1,12 +1,7 @@
 
-" ===========================
 " NEOVIM CONFIG - MODERN FUNCTIONALITY WITH SHORTCUTS (v0.9.5)
 " ===========================
 
-
-let g:python3_host_prog = expand("~/.venvs/nvim/bin/python")
-
-" --- Plugin Manager ---
 call plug#begin('~/.local/share/nvim/plugged')
 
 " Fuzzy Finder
@@ -199,17 +194,3 @@ nnoremap <silent> \t :lua require('avante').ask_popup()<CR>
 nnoremap <silent> \qa :lua require('avante').close_popup()<CR>
 i
 
-lua << EOF
-require('avante').setup({
-  ai = {
-    provider = 'claude',           -- or another supported AI
-    model = 'claude-sonnet-4',
-    api_key = os.getenv("CLAUDE_API_KEY"), -- set in your environment if needed
-  },
-  float = {
-    width = 0.35,                  -- 35% of editor width
-    height = 0.8,                  -- 80% of editor height
-    border = 'rounded'
-  }
-})
-EOF
