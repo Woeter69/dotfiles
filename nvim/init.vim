@@ -272,7 +272,6 @@ cmp.setup({
   },
   mapping = {
     ['<C-Space>'] = cmp.mapping.complete(),              -- manual trigger
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),  -- confirm selection
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
