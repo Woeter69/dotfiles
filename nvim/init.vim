@@ -36,6 +36,16 @@ Plug 'yetone/avante.nvim'
 Plug 'folke/tokyonight.nvim'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 Plug 'mattn/emmet-vim'
+
+" LSP support
+Plug 'neovim/nvim-lspconfig'
+
+" Autocompletion
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+
+" Optional: snippets
+Plug 'L3MON4D3/LuaSnip'
 call plug#end()
 
 set termguicolors
@@ -192,3 +202,15 @@ nnoremap <silent> \t :lua require('avante').ask_popup()<CR>
 " Close popup
 nnoremap <silent> \qa :lua require('avante').close_popup()<CR>
 
+lua << EOF
+local nvim_lsp = require'lspconfig'
+local cmp = require'cmp'
+
+cmp.setup({
+  sources = {{ name = 'nvim_lsp' }}
+})
+
+nvim_lsp.gopls.setup{
+  capabilities = require('cmp_nvim_lsp').default_capabilities()
+}
+EOF
