@@ -1,7 +1,6 @@
 
 " NEOVIM CONFIG - MODERN FUNCTIONALITY WITH SHORTCUTS (v0.9.5)
 " ===========================
-
 call plug#begin('~/.local/share/nvim/plugged')
 
 " Fuzzy Finder
@@ -36,11 +35,11 @@ Plug 'yetone/avante.nvim'
 " Colorschemes
 Plug 'folke/tokyonight.nvim'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
-
+Plug 'mattn/emmet-vim'
 call plug#end()
 
 set termguicolors
-colorscheme catppuccin
+colorscheme tokyonight
 
 
 " --- Basic Settings ---
@@ -54,7 +53,7 @@ syntax on
 " Insert mode
 inoremap kj <Esc>
 inoremap <C-s> <Esc>:w<CR>a
-
+imap <leader>e <C-y>,
 " Normal mode
 nnoremap <C-s> :w<CR>
 nnoremap <C-h> <C-w>h
@@ -192,5 +191,4 @@ nnoremap <silent> \t :lua require('avante').ask_popup()<CR>
 
 " Close popup
 nnoremap <silent> \qa :lua require('avante').close_popup()<CR>
-i
 
