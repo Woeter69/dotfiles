@@ -39,6 +39,7 @@ Plug 'mattn/emmet-vim'
 
 " LSP support
 Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig-0.11'
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
@@ -203,14 +204,93 @@ nnoremap <silent> \t :lua require('avante').ask_popup()<CR>
 nnoremap <silent> \qa :lua require('avante').close_popup()<CR>
 
 lua << EOF
-local nvim_lsp = require'lspconfig'
+-- suppress lspconfig deprecation warnings
+vim.notify = (function(orig_notify)
+  return function(msg, ...)
+    if type(msg) == "string" and msg:match("require%(\'lspconfig\'%)") then
+      return
+    end
+    orig_notify(msg, ...)
+  end
+end)(vim.notify)
+EOF
+
+" ========================
+" LSP + Completion Setup
+" ========================
+
+lua << EOF
+local lspconfig = require('lspconfig')
 local cmp = require'cmp'
 
-cmp.setup({
-  sources = {{ name = 'nvim_lsp' }}
-})
+-- Common on_attach function
+local on_attach = function(client, bufnr)
+  local opts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+end
 
-nvim_lsp.gopls.setup{
-  capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- ========================
+-- Setup LSP servers
+-- ========================
+
+-- Go
+lspconfig.gopls.setup{
+  on_attach = on_attach,
+  flags = { debounce_text_changes = 150 },
+  settings = {
+    gopls = {
+      analyses = { unusedparams = true },
+      staticcheck = true,
+    },
+  },
 }
+
+-- Python
+lspconfig.pyright.setup{
+  on_attach = on_attach,
+  flags = { debounce_text_changes = 150 },
+}
+
+-- C/C++
+lspconfig.clangd.setup{
+  on_attach = on_attach,
+  flags = { debounce_text_changes = 150 },
+}
+
+-- ========================
+-- nvim-cmp setup
+-- ========================
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)  -- or use luasnip
+    end,
+  },
+  mapping = {
+    ['<C-Space>'] = cmp.mapping.complete(),              -- manual trigger
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),  -- confirm selection
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, {'i','s'}),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, {'i','s'}),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+  },
+  completion = { autocomplete = { cmp.TriggerEvent.TextChanged } }, -- auto suggestions
+})
 EOF
