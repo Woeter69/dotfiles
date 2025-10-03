@@ -1,0 +1,9 @@
+\x auto
+
+\pset border 2
+
+\pset null '¤'
+
+\timing on
+
+\set PROMPT1 '%n@%/%R %# '
