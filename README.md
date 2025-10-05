@@ -67,10 +67,6 @@ This setup installs WSL (Ubuntu), Zsh, Oh My Zsh, Neovim, and links the dotfiles
 - Customize `.zshrc` or `init.vim` in the repo. Changes automatically reflect if symlinks exist.
 - To restore old configs, check `~/.zshrc.backup` and `~/.config/nvim.backup`.
 
-## License
-
-These dotfiles are provided under the MIT License. See [LICENSE](LICENSE) for details.
-
 ---
 
 > _“Your dotfiles are your toolbox. Take care of them!”_
