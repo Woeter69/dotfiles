@@ -39,7 +39,6 @@ Plug 'mattn/emmet-vim'
 
 " LSP support
 Plug 'neovim/nvim-lspconfig'
-Plug 'neovim/nvim-lspconfig-0.11'
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
