@@ -9,6 +9,9 @@ if [ ! -f "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim" ]; 
            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 fi
 
+
+export TERM="xterm-256color"
+
 # ------------------------------
 # Zinit (plugin manager)
 # ------------------------------
