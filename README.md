@@ -70,3 +70,5 @@ This setup installs WSL (Ubuntu), Zsh, Oh My Zsh, Neovim, and links the dotfiles
 ---
 
 > _“Your dotfiles are your toolbox. Take care of them!”_
+
+# Will add my arch setup soon! 
