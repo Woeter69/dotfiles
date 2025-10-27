@@ -1,74 +1,118 @@
-# dotfiles
+# dotfiles — Arch + Hyprland full desktop (Alacritty, Kitty, btop, cava, Fastfetch, rofi, unimatrix, Waybar, and more)
 
-Welcome to the **Woeter69/dotfiles** repository! This repository contains my personal configuration files (dotfiles) for various tools, shells, editors, and development environments. Dotfiles help keep your environment consistent across different machines and make it easy to share and update your setup.
+This repository is a complete, opinionated yet highly-personalizable Arch Linux + Hyprland desktop setup. It's not just a Neovim config anymore — this is a full Hyprland/Wayland workstation that includes terminal emulators, status bars, launchers, visualizers, system fetchers and small utilities, all intentionally exposed and documented so you can make it yours.
 
-## What's Inside?
+Everything is designed to be customized further: colors, fonts, keybindings, modules, scripts and small program tweaks are easy to find and edit.
 
-This repo typically includes configuration for:
-- Shells: `.zshrc`, etc.
-- Git: `.gitconfig`
-- Editors: Neovim (`init.vim`), VSCode settings, etc.
-- Terminal: `.tmux.conf`, `.screenrc`
-- Other tools: `.inputrc`, `.profile`, custom scripts, aliases, and more!
+Quick summary of what's included
+- hypr/ — Hyprland config (compositor, keybindings, monitor rules, autostart)
+- waybar/ — fully customized Waybar modules, CSS and scripts
+- rofi/ — themed rofi menus: run, window-switcher, powermenu and custom menus
+- alacritty/ — Alacritty GPU-backed terminal config and color presets
+- kitty/ — Kitty config (advanced features, graphics and ligatures) — choose either or both
+- btop/ — btop configuration (modern TUI resource monitor)
+- cava/ — cava config (terminal audio visualizer integration)
+- fastfetch/ — fastfetch configs for screenshots and login output
+- unimatrix/ — unimatrix config for eye-candy / screenshots
+- nvim/ — Neovim config (still included, optional)
+- scripts/ — helper scripts and installers (installation scripts and guided README will be published soon)
+- fonts/, icons/, themes/ — fonts, icon packs and theme assets used by the configs
 
-## Usage
+What each major piece is and how to customize it
 
-To set up these dotfiles on a new machine:
+- Hyprland (hypr/)
+  - What: core Wayland compositor config: monitors, workspace layout, window rules, keybinds and autostart.
+  - Where: hypr/hyprland.conf (or hypr/hypr.conf depending on layout). Machine-specific overrides should live in hypr/local.conf (ignored by git).
+  - Customize: edit bindings, workspace names, per-monitor scale and rules. Add autostart entries or systemd user units for services.
+  - Tip: Keep per-machine secrets or overrides out of the main files and use local/ignored files.
 
-## WSL + Zsh + Neovim Setup
+- Waybar (waybar/)
+  - What: the status bar. Includes modules for network, audio, battery, updates and many small custom scripts.
+  - Customize: change CSS in waybar/style.css, add modules in config.json/config.toml, drop scripts into waybar/scripts/ and reference them from config.
+  - Tip: update fonts and icon references in CSS when swapping fonts or icon packs.
 
-This setup installs WSL (Ubuntu), Zsh, Oh My Zsh, Neovim, and links the dotfiles from this repository.
+- Rofi (rofi/)
+  - What: launcher and menus with several pre-made themes and scripts (run menu, appgrid, powermenu, i3/Hypr app switch).
+  - Customize: edit themes in rofi/themes/, change colors and padding, and wire hotkeys in Hyprland keybindings.
 
-### Requirements
+- Alacritty (alacritty/) and Kitty (kitty/)
+  - What: two terminal options. Alacritty is fast and minimal (GPU-accelerated); Kitty is feature-rich (graphics, layout, remote control).
+  - Customize:
+    - Alacritty: edit alacritty/alacritty.yml to change font family/size, colors, padding and scrollback.
+    - Kitty: edit kitty/kitty.conf for tabs, ligatures, images and advanced shortcuts.
+  - Integration: both work well with cava and fastfetch. Pick one as your daily driver or keep both.
 
-- Windows 10/11
-- Admin access for PowerShell
+- btop (btop/)
+  - What: modern terminal resource monitor configurable via a single config file.
+  - Customize: colors, update intervals, sort behavior and what columns to show. Use with a Hyprland scratchpad or bind it to a key.
 
-### Steps
+- cava (cava/)
+  - What: terminal audio visualizer that reads pulse audio and draws bars in the terminal.
+  - Customize: adjust colors and bar layout in cava/config to match your theme. Run inside a floating terminal bound to a key.
 
-1. **Install WSL**
+- fastfetch (fastfetch/)
+  - What: lightweight system information fetcher used for screenshots and terminal welcome messages.
+  - Customize: change which fields are displayed, ASCII logo, colors and add custom lines.
 
-   Run the PowerShell script as Administrator:
+- unimatrix (unimatrix/)
+  - What: fun matrix-style terminal effect for screenshots or idle displays.
+  - Customize: density, speed and color.
 
-   ```powershell
-   cd ~/dotfiles/setup
-   .\setup-wsl.ps1
-   ```
+Personalization philosophy
+- Opinionated defaults, easy to edit: Most configs expose top-of-file variables for colors, fonts and behavior so you can change the look quickly.
+- Per-host overrides: Use hypr/local.conf or ~/.config/<app>/local.conf (gitignored) for machine-specific differences (GPU, monitors, hardware).
+- Symlink strategy: Keep this repo as your source-of-truth and symlink into ~/.config (or use stow).
+- Swap pieces freely: You can use Alacritty OR Kitty (or both) without changing other configs. The stack is modular.
 
-   This installs WSL and Ubuntu. Once done, open Ubuntu.
+Installation (short) — full guides and setup files coming soon
+- I will publish a step-by-step installation guide and automated installer scripts (.sh) that:
+  - install packages (pacman + AUR helper)
+  - back up existing dotfiles safely
+  - create symlinks/stow entries from this repo into ~/.config
+  - enable user services (pipewire, etc.)
+  - provide toggles for Alacritty vs Kitty, and optional features (cava, unimatrix)
+- NOTE: setup files and full installation guides will be out soon — they will be added to the scripts/ directory with usage examples and safety checks.
 
-2. **Clone the dotfiles in WSL**
-
-   _Inside Ubuntu WSL:_
-   ```sh
+Quick manual setup (minimal)
+1. Backup current config:
+   cp -r ~/.config ~/.config.backup
+2. Clone here:
    git clone https://github.com/Woeter69/dotfiles.git ~/dotfiles
-   cd ~/dotfiles/setup
-   ```
+3. Inspect top-of-file variables (colors/fonts) and edit them to taste.
+4. Link what you want:
+   mkdir -p ~/.config
+   ln -s ~/dotfiles/hypr ~/.config/hypr
+   ln -s ~/dotfiles/waybar ~/.config/waybar
+   ln -s ~/dotfiles/alacritty ~/.config/alacritty   # or kitty
+   ln -s ~/dotfiles/rofi ~/.config/rofi
+   ln -s ~/dotfiles/btop ~/.config/btop
+   ln -s ~/dotfiles/cava ~/.config/cava
+5. Install packages (example):
+   sudo pacman -Syu hyprland waybar mako wl-clipboard grim slurp pipewire pipewire-pulse xdg-desktop-portal-wlr swaylock
+   paru -S alacritty kitty btop cava fastfetch rofi unimatrix hyprpaper hyprpicker
+6. Enable essential user services:
+   systemctl --user enable --now pipewire pipewire-pulse
+7. Start your Hyprland session via your greeter or a Wayland-capable login method.
 
-3. **Install Zsh, Neovim, and link dotfiles**
+Customization examples
+- Global colors: change base colors in waybar/style.css and alacritty/alacritty.yml to update the look across bar and terminal.
+- Fonts: install a patched Nerd Font and set it in both Alacritty and Waybar for consistent icon rendering.
+- New Waybar module: drop a script in waybar/scripts/, reference it in config.json and give it a CSS class for styling.
+- Audio visualizer: run cava in a floating Alacritty/Kitty instance and bind a Hyprland key to toggle it.
 
-   ```sh
-   chmod +x setup-wsl-dotfiles.sh
-   ./setup-wsl-dotfiles.sh
-   ```
+Safety notes
+- Always back up current dotfiles before overwriting.
+- Use local, gitignored files for secrets or machine differences.
+- Test new configs in a spare user or VM if unsure.
 
-   - Installs Zsh, Oh My Zsh, Neovim, and essential tools.
-   - Symlinks `.zshrc` and `nvim/` from this repo.
-   - Backs up any existing configs automatically.
+Contributing
+- PRs welcome for modules, themes, scripts and small fixes. Open an issue first for larger changes.
+- Keep local/host-specific files out of git and document changes in PR descriptions.
 
-4. **Start using your dotfiles**
+License
+- MIT License — see LICENSE for details.
 
-   Open a new WSL session to use Zsh with your configuration.
+Contact
+- Maintained by Woeter69 — https://github.com/Woeter69
 
-   Neovim will use `~/dotfiles/nvim/init.vim`.
-
-### Optional
-
-- Customize `.zshrc` or `init.vim` in the repo. Changes automatically reflect if symlinks exist.
-- To restore old configs, check `~/.zshrc.backup` and `~/.config/nvim.backup`.
-
----
-
-> _“Your dotfiles are your toolbox. Take care of them!”_
-
-# Will add my arch setup soon! 
+What I changed: I expanded the README to reflect that this repo is a complete Arch + Hyprland desktop stack (Alacritty, Kitty, btop, cava, Fastfetch, rofi, unimatrix, Waybar and more), explained what each component does and how to personalize it, and clearly stated that setup files and installation guides will be published soon in the scripts/ directory. What's next: I'll prepare the installer scripts and a step-by-step installation guide and add them to scripts/ so people can bootstrap the setup quickly.
