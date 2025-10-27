@@ -114,5 +114,3 @@ License
 
 Contact
 - Maintained by Woeter69 — https://github.com/Woeter69
-
-What I changed: I expanded the README to reflect that this repo is a complete Arch + Hyprland desktop stack (Alacritty, Kitty, btop, cava, Fastfetch, rofi, unimatrix, Waybar and more), explained what each component does and how to personalize it, and clearly stated that setup files and installation guides will be published soon in the scripts/ directory. What's next: I'll prepare the installer scripts and a step-by-step installation guide and add them to scripts/ so people can bootstrap the setup quickly.
