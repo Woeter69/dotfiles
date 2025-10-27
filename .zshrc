@@ -9,9 +9,9 @@ if [ ! -f "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim" ]; 
            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 fi
 
+export TERM=xterm-kitty
 
-export TERM="xterm-256color"
-
+player="ytmdesktop"
 # ------------------------------
 # Zinit (plugin manager)
 # ------------------------------
@@ -72,6 +72,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 # ------------------------------
 alias nv='nvim'
 alias ls='ls --color=never'
+alias ytm="flatpak run app.ytmdesktop.ytmdesktop"
 
 # ------------------------------
 # fzf integration
@@ -99,3 +100,6 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/go/bin
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+cowsay -f actually I use Arch btw
