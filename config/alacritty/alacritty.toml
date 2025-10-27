@@ -49,3 +49,25 @@ magenta = "#f5c2e7"
 cyan    = "#94e2d5"
 white   = "#a6adc8"
 
+[cursor]
+style = "Beam"
+unfocused_hollow = true
+blink_interval = 500
+
+[mouse]
+hide_when_typing = true
+
+[keyboard]
+bindings = [
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" }
+]
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[debug]
+render_timer = false
+log_level = "Warn"
