@@ -34,6 +34,8 @@ Plug 'yetone/avante.nvim'
 " Colorschemes
 Plug 'folke/tokyonight.nvim'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+
+" emmet
 Plug 'mattn/emmet-vim'
 
 " LSP support
@@ -43,6 +45,8 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 
+" Codesnap
+Plug 'mistricky/codesnap.nvim', { 'do': 'make' }
 " Optional: snippets
 Plug 'L3MON4D3/LuaSnip'
 call plug#end()
@@ -92,7 +96,7 @@ nnoremap \z :Files<CR>
 
 " Toggle comments for selected lines
 vnoremap <leader>c gc
-
+vnoremap <A-S-s> :CodeSnapSave<CR>
 " Map Alt+v to Visual Block mode
 nnoremap <M-v> <C-v>
 
@@ -293,4 +297,18 @@ cmp.setup({
 })
 EOF
 
+lua << EOF
+require("codesnap").setup({
+  save_path = "~/Pictures/Codesnap",
+	bg_theme = "grape",
+  code_font_family = "JetBrainsMono Nerd Font",
+  has_breadcrumbs = true,
+  has_line_number = true,
+  mac_window_bar = true,
+  rounded_corner = true,
+  frame = true,
+  border_color = "#7aa2f7",
+  watermark = "",
+})
+EOF
 autocmd VimEnter * call feedkeys("\<CR>", 'n')

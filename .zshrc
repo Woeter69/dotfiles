@@ -103,3 +103,5 @@ export PATH=$PATH:$HOME/go/bin
 
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 cowsay -f actually I use Arch btw
+
+export PATH=$PATH:/home/Woeter/.spicetify
