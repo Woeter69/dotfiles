@@ -2,6 +2,9 @@
 " ===========================
 call plug#begin('~/.local/share/nvim/plugged')
 
+" Wakatime
+Plug 'wakatime/vim-wakatime'
+
 " Fuzzy Finder
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'

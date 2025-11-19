@@ -72,8 +72,11 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 # ------------------------------
 alias nv='nvim'
 alias ls='ls --color=never'
-alias ytm="flatpak run app.ytmdesktop.ytmdesktop"
-
+alias ytm="firefox music.youtube.com"
+alias github="firefox github.com"
+alias gpt="firefox chatgpt.com"
+alias yt="firefox youtube.com"
+alias calendar="firefox calendar.notion.so"
 # ------------------------------
 # fzf integration
 # ------------------------------
